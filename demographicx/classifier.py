@@ -29,9 +29,9 @@ def one_batch_name_predictor(encoder, model, name):
 
 
 class GenderEstimator:
-    def __init__(self):
+    def __init__(self, name_or_path="liamliang/demographics_gender"):
         self.model = BertForSequenceClassification.from_pretrained(
-            "liamliang/demographics_gender")
+            name_or_path)
         self.tokenizer = AutoTokenizer.from_pretrained('bert-base-cased')
 
     def predict(self, name):
@@ -41,9 +41,9 @@ class GenderEstimator:
 
 
 class EthnicityEstimator:
-    def __init__(self):
+    def __init__(self, name_or_path="liamliang/demographics_race"):
         self.model = BertForSequenceClassification.from_pretrained(
-            "liamliang/demographics_race")
+            name_or_path)
         self.tokenizer = AutoTokenizer.from_pretrained('bert-base-cased')
 
     def predict(self, name):
