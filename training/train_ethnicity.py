@@ -10,6 +10,8 @@ from torch.utils.data import TensorDataset
 from tqdm.notebook import tqdm
 from transformers import AutoTokenizer, BertForSequenceClassification
 
+from utils import f1_score_func
+
 
 # The Function to Create both Word-level and Character-level Features for BERT
 def get_name_pair(s):
@@ -178,7 +180,7 @@ for epoch in tqdm(range(1, epochs + 1)):
     tqdm.write(f'Training loss: {loss_train_avg}')
 
     val_loss, predictions, true_vals = evaluate(dataloader_validation)
-    val_f1 = f1_score_func(predictions, true_vals)
+    val_f1 = f1_score_func(predictions, true_vals, )
     tqdm.write(f'Validation loss: {val_loss}')
     tqdm.write(f'F1 Score (Weighted): {val_f1}')
 
