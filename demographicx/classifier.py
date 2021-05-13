@@ -30,11 +30,29 @@ def one_batch_name_predictor(encoder, model, name):
 
 class GenderEstimator:
     def __init__(self, name_or_path="liamliang/demographics_gender"):
+        """
+        Generate an estimator instance
+        --------------------------------
+        Parameter
+        --------------------------------
+        name_or_path: the path of the saved model, by default, it downloads a trained model.
+        """
         self.model = BertForSequenceClassification.from_pretrained(
             name_or_path)
         self.tokenizer = AutoTokenizer.from_pretrained('bert-base-cased')
 
     def predict(self, name):
+        """
+        Predicts gender based on a name
+        --------------------------------
+        Parameter
+        --------------------------------
+        name: A first name for which you want to predict the gender.
+        --------------------------------
+        Returns
+        --------------------------------
+        A dictionary which includes the predicted probability of the name being each gender 
+        """
         output = one_batch_name_predictor(self.tokenizer, self.model, name)
         res = {'male': output[0], 'unknown': output[1], 'female': output[2]}
         return res
@@ -42,11 +60,29 @@ class GenderEstimator:
 
 class EthnicityEstimator:
     def __init__(self, name_or_path="liamliang/demographics_race"):
+        """
+        Generate an estimator instance
+        --------------------------------
+        Parameter
+        --------------------------------
+        name_or_path: the path of the saved model, by default, it downloads a trained model.
+        """
         self.model = BertForSequenceClassification.from_pretrained(
             name_or_path)
         self.tokenizer = AutoTokenizer.from_pretrained('bert-base-cased')
 
     def predict(self, name):
+        """
+        Predicts ethnicity based on a name
+        --------------------------------
+        Parameter
+        --------------------------------
+        name: A full name for which you want to predict the ethnicity.
+        --------------------------------
+        Returns
+        --------------------------------
+        A dictionary which includes the predicted probability of the name being each ethnicity 
+        """
         output = one_batch_name_predictor(self.tokenizer, self.model, name)
         res = {'black': output[0], 'hispanic': output[1], 'white': output[2],
                'asian': output[3]}

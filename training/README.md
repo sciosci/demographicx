@@ -34,7 +34,7 @@ After running the following code, models will be saved to `../demographics_ethni
 and `../demographics_gender`
 
 ```bash
-python train_genger.py
+python train_gender.py
 python train_ethnicity.py
 ```
 

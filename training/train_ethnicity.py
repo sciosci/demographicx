@@ -7,7 +7,7 @@ from sklearn.metrics import f1_score
 # Creating Dataloader
 from torch.utils.data import DataLoader, RandomSampler
 from torch.utils.data import TensorDataset
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 from transformers import AutoTokenizer, BertForSequenceClassification
 
 from utils import f1_score_func
@@ -34,6 +34,7 @@ for index, possible_label in enumerate(possible_labels):
 
 race_sampled_train['label'] = race_sampled_train['label'].replace(label_dict)
 race_sampled_val['label'] = race_sampled_val['label'].replace(label_dict)
+
 
 torch.set_grad_enabled(True)
 
@@ -190,3 +191,4 @@ f1_score(true_vals, np.argmax(predictions, axis=1), average=None)
 
 # Save Model
 model.save_pretrained('../demographics_ethnicity/')
+print('Model saved!')

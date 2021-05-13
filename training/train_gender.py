@@ -3,7 +3,7 @@ import pandas as pd
 import torch
 from sklearn.metrics import f1_score
 from torch.utils.data import TensorDataset
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 from transformers import AutoModel, AutoTokenizer, BertForSequenceClassification
 
 from utils import f1_score_func
@@ -191,3 +191,4 @@ f1_score(true_vals, np.argmax(predictions, axis=1), average=None)
 
 # Save Model
 model.save_pretrained('../demographics_gender/')
+print('Model saved!')
