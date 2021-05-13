@@ -48,3 +48,7 @@ from demographicx import GenderEstimator
 gender_estimator = GenderEstimator(name_or_path="../demographics_gender")
 gender_estimator.predict('Daniel')
 ```
+## Training environment  
+The default model was trained using Nvidia GeForce RTX 2070 (8 Gb GDDR6)    
+Driver Version: 450.119.03     
+CUDA Version: 11.0   
