@@ -10,7 +10,20 @@ __all__ = [
 
 
 def get_name_pair(s):
-    return s, ' '.join(str(s)).replace('  ', ' ').replace('  ', ' ')
+    """Creates space seperated words and space seperated character in a list
+
+    Parameter
+    ---------
+    s : string
+        the string of the name to make prediction
+    
+    Returns
+    -------
+    out : list
+          list includes both space seperated words and space seperated character in a list
+    """
+    out = s, ' '.join(str(s)).replace('  ', ' ').replace('  ', ' ')
+    return out
 
 
 def one_batch_name_predictor(encoder, model, name):
@@ -30,28 +43,30 @@ def one_batch_name_predictor(encoder, model, name):
 
 class GenderEstimator:
     def __init__(self, name_or_path="liamliang/demographics_gender"):
-        """
-        Generate an estimator instance
-        --------------------------------
-        Parameter
-        --------------------------------
-        name_or_path: the path of the saved model, by default, it downloads a trained model.
+        """Creates an estimator instance  
+        
+        Parameters
+        ----------
+        name_or_path : string
+                       the path of the saved model, by default, it downloads a trained model.
         """
         self.model = BertForSequenceClassification.from_pretrained(
             name_or_path)
         self.tokenizer = AutoTokenizer.from_pretrained('bert-base-cased')
 
     def predict(self, name):
-        """
-        Predicts gender based on a name
-        --------------------------------
-        Parameter
-        --------------------------------
-        name: A first name for which you want to predict the gender.
-        --------------------------------
+        """Predicts gender based on a name.  
+
+        Parameters
+        ----------
+        name: string
+              A first name for which you want to predict the gender.
+        
         Returns
-        --------------------------------
-        A dictionary which includes the predicted probability of the name being each gender 
+        -------
+        res : dictionary
+              A dictionary that includes the predicted probability of the name being each gender
+              for example: {'male': 0.9886190672823015, 'unknown': 0.011367974526753396, 'female': 1.2958190945360288e-05}
         """
         output = one_batch_name_predictor(self.tokenizer, self.model, name)
         res = {'male': output[0], 'unknown': output[1], 'female': output[2]}
@@ -60,28 +75,30 @@ class GenderEstimator:
 
 class EthnicityEstimator:
     def __init__(self, name_or_path="liamliang/demographics_race"):
-        """
-        Generate an estimator instance
-        --------------------------------
-        Parameter
-        --------------------------------
-        name_or_path: the path of the saved model, by default, it downloads a trained model.
+        """Creates an estimator instance
+        
+        Parameters
+        ----------
+        name_or_path : string
+                       the path of the saved model, by default, it downloads a trained model.
         """
         self.model = BertForSequenceClassification.from_pretrained(
             name_or_path)
         self.tokenizer = AutoTokenizer.from_pretrained('bert-base-cased')
 
     def predict(self, name):
-        """
-        Predicts ethnicity based on a name
-        --------------------------------
-        Parameter
-        --------------------------------
-        name: A full name for which you want to predict the ethnicity.
-        --------------------------------
+        """Predicts ethnicity based on a name
+        
+        Parameters
+        ----------
+        name : string
+               A full name for which you want to predict the ethnicity.
+        
         Returns
-        --------------------------------
-        A dictionary which includes the predicted probability of the name being each ethnicity 
+        -------
+        res : dictionary
+              A dictionary which includes the predicted probability of the name being each ethnicity 
+              for example: {'black': 4.120965729769303e-06, 'hispanic': 0.0023926903023342287, 'white': 0.9963380370701861, 'asian': 0.00126515166175015}
         """
         output = one_batch_name_predictor(self.tokenizer, self.model, name)
         res = {'black': output[0], 'hispanic': output[1], 'white': output[2],
