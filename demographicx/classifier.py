@@ -42,14 +42,32 @@ def one_batch_name_predictor(encoder, model, name):
 
 
 class GenderEstimator:
+    """Estimator that predicts the gender for a given first name.
+
+    Parameters
+    ----------
+    name_or_path : string
+                    the path of the saved model, by default, it downloads a trained model.
+
+    Attributes
+    ----------
+    model : transformer model object
+            loaded from transformer hub
+
+    tokenizer : transformer tokenizer
+                tokenizer used to tokenize first names
+
+    Examples
+    --------
+    >>> from demographicx import GenderEstimator
+    >>> gender_estimator = GenderEstimator()
+    >>> gender_estimator.predict('Daniel')
+
+    {'male': 0.9886190672823015,
+    'unknown': 0.011367974526753396,
+    'female': 1.2958190945360288e-05}
+    """
     def __init__(self, name_or_path="liamliang/demographics_gender"):
-        """Creates an estimator instance  
-        
-        Parameters
-        ----------
-        name_or_path : string
-                       the path of the saved model, by default, it downloads a trained model.
-        """
         self.model = BertForSequenceClassification.from_pretrained(
             name_or_path)
         self.tokenizer = AutoTokenizer.from_pretrained('bert-base-cased')
@@ -74,14 +92,40 @@ class GenderEstimator:
 
 
 class EthnicityEstimator:
+    """Estimator that predicts the ethnicity for a given full name.
+
+    Parameters
+    ----------
+    name_or_path : string
+                    the path of the saved model, by default, it downloads a trained model.
+
+    Attributes
+    ----------
+    model : transformer model object
+            loaded from transformer hub
+
+    tokenizer : transformer tokenizer
+                tokenizer used to tokenize full names
+    
+    Examples
+    --------
+    >>> from demographicx import EthnicityEstimator
+    >>> ethnicity_estimator = EthnicityEstimator()
+    >>> ethnicity_estimator.predict('lizhen liang')
+
+    {'black': 2.1461191541442314e-06,
+        'hispanic': 4.0070474029127346e-05,
+        'white': 0.0002176521167431309,
+        'asian': 0.999740131290074}
+
+    >>> ethnicity_estimator.predict('daniel wegmann')
+
+    {'black': 4.120965729769303e-06,
+        'hispanic': 0.0023926903023342287,
+        'white': 0.9963380370701861,
+        'asian': 0.00126515166175015}
+    """
     def __init__(self, name_or_path="liamliang/demographics_race"):
-        """Creates an estimator instance
-        
-        Parameters
-        ----------
-        name_or_path : string
-                       the path of the saved model, by default, it downloads a trained model.
-        """
         self.model = BertForSequenceClassification.from_pretrained(
             name_or_path)
         self.tokenizer = AutoTokenizer.from_pretrained('bert-base-cased')
