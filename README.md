@@ -50,6 +50,8 @@ ethnicity_estimator.predict('daniel wegmann')
 
 * torch
 * transformers
+* numpy
+* scipy
 
 ## License
 
