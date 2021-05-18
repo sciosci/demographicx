@@ -38,7 +38,7 @@ Demographic information such as gender and ethnicity is a crucial dimension to u
 | **Acc** | 0.972      | 0.711 | 0.979      | 0.885 | 0.862       | 0.664 |
 | **AUC** | 0.993      | 0.954 | 0.996      | 0.965 | 0.966       | 0.860 |
 
-: Gender prediction performance on validation split of the mixed data set and Social Security Administration (SSA) popular newborn names
+: Gender prediction performance on validation split of the mixed data set and Social Security Administration (SSA) popular newborn names. Names in SSA that are also in validation and with a "unknown" label in authori-ty data set will take the label from authori-ty in order to validate performance on "unknown" class.
 
 Here, we describe a Python package called `demographicx` which infers gender from first name and ethnicity from the full name. It is based on fine-tuning a deep learning BERT embedding model with sub-word tokenization (Devlin et al., 2018). Importantly, our model has the ability to make predictions for names that it has not seen before. We build our package on top of the popular transformers package, which increases the likelihood that users will have parts of our models cached in their computers. The dataset we used to train includes Genni + Ethnea for the Author-ity 2009 dataset by Torvik [@illinoisdatabankIDB-9087546], which has names and predicted results by other previous methods. We mixed the dataset with the Social Security Administration (SSA) popular newborn baby names dataset [@social2013beyond] and a Wikipedia name ethnicity dataset [@ambekar2009name]. We validate our model with both the aggregated data set and the Wikipedia datasets. Our models achieve excellent performance on both tasks (see Table 1 and 2).
 
