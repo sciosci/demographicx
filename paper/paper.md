@@ -1,5 +1,5 @@
 ---
-title: 'demographicx: A Python package for estimating gender and ethnicity using deep learning transformers'
+title: '`demographicx`: A Python package for estimating gender and ethnicity using deep learning transformers'
 tags:
   - Python
   - gender
@@ -7,22 +7,14 @@ tags:
   - race
   - BERT
   - NLP
-authors:
-  - name: Lizhen Liang
-    orcid: 0000-0001-9329-2767
-    affiliation: 1 
-  - name: Daniel E. Acuna
-    orcid: 0000-0002-7765-1595
-    affiliation: 1
-affiliations:
- - name: School of Information Studies, Syracuse University, Syracuse, NY
-   index: 1
+author:
+  - name: Lizhen Liang and Daniel E. Acuna
+    affiliation: School of Information Studies, Syracuse University, Syracuse, NY
 
-date: May 6th, 2021
 bibliography: paper.bib
 ---
 
-# Summary
+# Abstract
 
 Plenty of research questions would benefit from understanding whether demographic factors are associated with social phenomena. Accessing this information from individuals is many times infeasible or unethical. While software packages have been developed for inferring this information, they are often untested, outdated, or with licensing restrictions. Here, we present a Python package to infer the gender and ethnicity of individuals using first names or full names. We employ a deep learning transformer of text fragments based on BERT to fine-tune a network. We train our model on Torkiv [@illinoisdatabankIDB-9087546], and extensively validate our predictions. Our gender prediction achieves an average F1 of 0.942 across female, male, and unknown gender names. Similarly, our ethnicity prediction achieves an average F1 of 0.94 across White, Black, Hispanic, and Asian categories. We hope that by making our package open and tested, we improve demographic estimates for many research fields that are trying to understand these factors.
 

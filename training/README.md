@@ -13,7 +13,7 @@ To download the models, execute the following commands:
 ```bash
 # the data from the SSA is already in data
 wget https://databank.illinois.edu/datafiles/xg3jn/download -O data/genni-ethnea-authority2009.tsv
-wget "https://github.com/appeler/ethnicolr/blob/master/ethnicolr/data/wiki/wiki_name_race.csv?raw=true" -O data/wiki_name_race.csv
+wget https://github.com/appeler/ethnicolr/blob/master/ethnicolr/data/wiki/wiki_name_race.csv?raw=true -O data/wiki_name_race.csv
 ```
 
 ## Preprocessing
