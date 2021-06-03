@@ -1,4 +1,5 @@
 # `demographicx`: A Python package for estimating gender and ethnicity using deep learning transformers
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4898367.svg)](https://doi.org/10.5281/zenodo.4898367)
 
 ## Summary
 
@@ -55,4 +56,11 @@ ethnicity_estimator.predict('daniel wegmann')
 
 ## License
 
-See `LICENSE`
+See `LICENSE`  
+
+## Citation
+[Liang, L., Acuna, DE., demographicx: A Python package for estimating gender and ethnicity using deep learning transformers. (2021).](https://github.com/sciosci/demographicx/blob/master/paper/paper.pdf)  
+
+
+
+
