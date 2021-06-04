@@ -39,12 +39,12 @@ ethnicity_estimator.predict('lizhen liang')
      'white': 0.0002176521167431309,
      'asian': 0.999740131290074}
 
-ethnicity_estimator.predict('daniel wegmann')
+ethnicity_estimator.predict('daniel acuña')
 
-{'black': 4.120965729769303e-06,
-     'hispanic': 0.0023926903023342287,
-     'white': 0.9963380370701861,
-     'asian': 0.00126515166175015}
+{'black': 6.825178743178657e-06,
+ 'hispanic': 0.997500874589596,
+ 'white': 0.0022641902145253204,
+ 'asian': 0.00022811001713535234} 
 ```
 
 ## Dependencies
