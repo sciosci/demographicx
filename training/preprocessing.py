@@ -134,3 +134,6 @@ ethnic_sampled_train, ethnic_sampled_val = train_test_split(ethnic_sampled, test
 
 ethnic_sampled_train.to_csv('./data/ethnic_mixed_train.csv', index=False)
 ethnic_sampled_val.to_csv('./data/ethnic_mixed_val.csv', index=False)
+
+
+

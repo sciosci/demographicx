@@ -5,6 +5,7 @@ The training of our models is based on three datasets:
 - [Genni + Ethnea for Author-ity 2009 dataset](https://databank.illinois.edu/datasets/IDB-9087546)
 - [Wikipedia dataset](https://github.com/appeler/ethnicolr/tree/master/ethnicolr/data/wiki)
 - [Social Security Administration baby names](https://data.world/howarder/gender-by-name)
+- [Frequently Occurring Surnames from the 2010 Census](https://www.census.gov/topics/population/genealogy/data/2010_surnames.html)
 
 ## Obtaining the data
 
