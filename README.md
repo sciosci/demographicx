@@ -34,17 +34,17 @@ from demographicx import EthnicityEstimator
 ethnicity_estimator = EthnicityEstimator()
 ethnicity_estimator.predict('lizhen liang')
 
-{'black': 2.1461191541442314e-06,
-     'hispanic': 4.0070474029127346e-05,
-     'white': 0.0002176521167431309,
-     'asian': 0.999740131290074}
+{'black': 7.76920258508755e-05,
+ 'hispanic': 0.00034410537213250747,
+ 'white': 0.0008992292872395202,
+ 'asian': 0.9986789733147773}
 
 ethnicity_estimator.predict('daniel acuña')
 
-{'black': 6.825178743178657e-06,
- 'hispanic': 0.997500874589596,
- 'white': 0.0022641902145253204,
- 'asian': 0.00022811001713535234} 
+{'black': 0.06771294974368015,
+ 'hispanic': 0.49868134219755395,
+ 'white': 0.1521847780511786,
+ 'asian': 0.2814209300075871}
 ```
 
 ## Dependencies
