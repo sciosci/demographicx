@@ -113,10 +113,10 @@ class EthnicityEstimator:
              'asian': 0.999740131290074}
     """
 
-    def __init__(self, name_or_path="liamliang/demographics_race"):
+    def __init__(self, name_or_path="liamliang/demographics_race_v2"):
         self.model = BertForSequenceClassification.from_pretrained(
             name_or_path)
-        self.tokenizer = AutoTokenizer.from_pretrained('bert-base-cased')
+        self.tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
 
     def predict(self, name):
         """Predicts ethnicity based on a name
@@ -137,7 +137,7 @@ class EthnicityEstimator:
               'asian': 0.00126515166175015}
         """
         output = _one_batch_name_predictor(self.tokenizer, self.model, name)
-        res = {'black': output[0], 'hispanic': output[1], 'white': output[2],
+        res = {'black': output[2], 'hispanic': output[1], 'white': output[0],
                'asian': output[3]}
         return res
 
