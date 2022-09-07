@@ -1,0 +1,296 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={demographicx: A Python package for estimating gender and ethnicity using deep learning transformers},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{\texttt{demographicx}: A Python package for estimating gender and
+ethnicity using deep learning transformers}
+    \usepackage{authblk}
+                                        \author[]{Lizhen Liang and Daniel E. Acuna}
+                                                            \affil{School of Information Studies, Syracuse University, Syracuse, NY}
+                                            \date{}
+
+\begin{document}
+\maketitle
+
+\hypertarget{abstract}{%
+\section{Abstract}\label{abstract}}
+
+Plenty of research questions would benefit from understanding whether
+demographic factors are associated with social phenomena. Accessing this
+information from individuals is many times infeasible or unethical.
+While software packages have been developed for inferring this
+information, they are often untested, outdated, or with licensing
+restrictions. Here, we present a Python package to infer the gender and
+ethnicity of individuals using first names or full names. We employ a
+deep learning transformer of text fragments based on BERT to fine-tune a
+network. We train our model on Torkiv (Torvik 2018), and extensively
+validate our predictions. Our gender prediction achieves an average F1
+of 0.942 across female, male, and unknown gender names. Similarly, our
+ethnicity prediction achieves an average F1 of 0.94 across White, Black,
+Hispanic, and Asian categories. We hope that by making our package open
+and tested, we improve demographic estimates for many research fields
+that are trying to understand these factors.
+
+\hypertarget{statement-of-need}{%
+\subsection{Statement of Need}\label{statement-of-need}}
+
+Demographic information such as gender and ethnicity is a crucial
+dimension to understand many social phenomena. Gender and ethnicity are
+of course only a fraction of the critical factors that should be
+analyzed about individuals (see (Acuna 2020)), yet they have attracted
+increased interest from the research community. In social science, for
+example, it has been shown that gender and race are important for
+scientific collaboration (Larivière et al. 2013), mentorship (Schwartz,
+Liénard, and David 2021), and funding (Ginther et al. 2011). Accessing
+this information is, however, challenging because of legal or ethical
+reasons. Many studies resort to analyzing names to make these kinds of
+inferences, but the packages and services they often use are
+non-reproducible or rely on proprietary information with unknown methods
+and validations (e.g., genderize.io). Without access to an easy-to-use,
+public, open, and validated method, we risk making inferences about
+these kinds of phenomena without good grounding. While inferring
+demographics from names has potential flaws (Kozlowski et al. 2021), it
+is sometimes the only input we have; it is desirable to have better
+algorithms than the ones currently available.
+
+\begin{longtable}[]{@{}lllllll@{}}
+\caption{Gender prediction performance on validation split of the mixed
+data set and Social Security Administration (SSA) popular newborn names.
+Names in SSA that are also in validation and with a ``unknown'' label in
+authori-ty data set will take the label from authori-ty in order to
+validate performance on ``unknown'' class.}\tabularnewline
+\toprule
+\endhead
+& \textbf{Male} & & \textbf{Female} & & \textbf{Unknown}
+&\tabularnewline
+& Validation & SSA & Validation & SSA & Validation & SSA\tabularnewline
+\textbf{F1} & 0.961 & 0.813 & 0.975 & 0.915 & 0.889 &
+0.504\tabularnewline
+\textbf{Acc} & 0.972 & 0.711 & 0.979 & 0.885 & 0.862 &
+0.664\tabularnewline
+\textbf{AUC} & 0.993 & 0.954 & 0.996 & 0.965 & 0.966 &
+0.860\tabularnewline
+\bottomrule
+\end{longtable}
+
+Here, we describe a Python package called \texttt{demographicx} which
+infers gender from first name and ethnicity from the full name. It is
+based on fine-tuning a deep learning BERT embedding model with sub-word
+tokenization (Devlin et al., 2018). Importantly, our model has the
+ability to make predictions for names that it has not seen before. We
+build our package on top of the popular transformers package, which
+increases the likelihood that users will have parts of our models cached
+in their computers. The dataset we used to train includes Genni + Ethnea
+for the Author-ity 2009 dataset by Torvik (Torvik 2018), which has names
+and predicted results by other previous methods. We mixed the dataset
+with the Social Security Administration (SSA) popular newborn baby names
+dataset (Social Security Administration 2013) and a Wikipedia name
+ethnicity dataset (Ambekar et al. 2009). We validate our model with both
+the aggregated data set and the Wikipedia datasets. Our models achieve
+excellent performance on both tasks (see Table 1 and 2).
+
+\begin{longtable}[]{@{}lllllllll@{}}
+\caption{Race prediction performance on validation (val) split of the
+mixed data set and Wikipedia (Wiki) names}\tabularnewline
+\toprule
+& Black & & Hispanic & & White & & Asian &\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+& Black & & Hispanic & & White & & Asian &\tabularnewline
+\midrule
+\endhead
+& Val & Wiki & Val & Wiki & Val & Wiki & Val & Wiki\tabularnewline
+\textbf{F1} & 0.976 & 0.987 & 0.936 & 0.822 & 0.907 & 0.850 & 0.941 &
+0.859\tabularnewline
+\textbf{Acc} & 0.999 & 0.999 & 0.928 & 0.788 & 0.902 & 0.856 & 0.931 &
+0.843\tabularnewline
+\textbf{AUC} & 0.999 & 0.996 & 0.990 & 0.964 & 0.983 & 0.963 & 0.989 &
+0.962\tabularnewline
+\bottomrule
+\end{longtable}
+
+Because our package is built based on the \texttt{transformers} package,
+it can be easily incorporated into PyTorch and transformers. The API is
+very simple on purpose. Our package has already been used in (Acuna and
+Liang 2021) and multiple other internal projects.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{In: }\ImportTok{from}\NormalTok{ demographicx }\ImportTok{import}\NormalTok{ GenderEstimator}
+\NormalTok{In: gender_estimator }\OperatorTok{=}\NormalTok{ GenderEstimator()}
+\NormalTok{In: gender_estimator.predict(“Daniel”)}
+\NormalTok{Out: \{‘female’: }\FloatTok{0.001}\NormalTok{, ‘male’: }\FloatTok{0.988}\NormalTok{, ‘unknown’, }\FloatTok{0.011}\NormalTok{\}}
+
+\NormalTok{In: gender_estimator.predict(“Amy”)}
+\NormalTok{Out: \{‘female’: }\FloatTok{0.998}\NormalTok{, ‘male’: }\FloatTok{0.001}\NormalTok{, ‘unknown’, }\FloatTok{0.001}\NormalTok{\}}
+
+\NormalTok{In: }\ImportTok{from}\NormalTok{ demographicx }\ImportTok{import}\NormalTok{ EthnicityEstimator}
+\NormalTok{In: ethnicity_estimator }\OperatorTok{=}\NormalTok{ EthnicityEstimator()}
+\NormalTok{In: ethnicity_estimator.predict(“Daniel Acuna”)}
+\NormalTok{Out: \{‘white’: }\FloatTok{0.002}\NormalTok{, ‘hispanic’: }\FloatTok{0.998}\NormalTok{, ‘black’, }\FloatTok{0.000}\NormalTok{, ‘asian’: }\FloatTok{0.000}\NormalTok{\}}
+
+\NormalTok{In: ethnicity_estimator.predict(“Lizhen Liang”)}
+\NormalTok{Out: \{‘white’: }\FloatTok{0.000}\NormalTok{, ‘hispanic’: }\FloatTok{0.000}\NormalTok{, ‘black’, }\FloatTok{0.000}\NormalTok{, ‘asian’: }\FloatTok{0.999}\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{acknowledgments}{%
+\section{Acknowledgments}\label{acknowledgments}}
+
+L. Liang and D. Acuna were partially funded by the National Science
+Foundation grant ``Social Dynamics of Knowledge Transfer Through
+Scientific Mentorship and Publication'' \#1933803. We thank Jim Yi for
+his help with the repository.
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\leavevmode\hypertarget{ref-acuna2020some}{}%
+Acuna, Daniel E. 2020. ``Some Considerations for Studying Gender,
+Mentorship, and Scientific Impact: Commentary on Alshebli, Makovi, and
+Rahwan (2020).'' \emph{OSF Preprints}.
+\url{https://doi.org/10.31219/osf.io/ybfk6}.
+
+\leavevmode\hypertarget{ref-acuna2021are}{}%
+Acuna, Daniel E, and Lizhen Liang. 2021. ``Are Ai Ethics Conferences
+Different and More Diverse Compared to Traditional Computer Science
+Conferences?'' In \emph{Fourth Aaai/Acm Conference on Artificial
+Intelligence, Ethics, and Society (Aies'21)}. Association for Computing
+Machinery. \url{https://doi.org/10.1145/3461702.3462616}.
+
+\leavevmode\hypertarget{ref-ambekar2009name}{}%
+Ambekar, Anurag, Charles Ward, Jahangir Mohammed, Swapna Male, and
+Steven Skiena. 2009. ``Name-Ethnicity Classification from Open
+Sources.'' In \emph{Proceedings of the 15th Acm Sigkdd International
+Conference on Knowledge Discovery and Data Mining}, 49--58.
+\url{https://doi.org/10.1145/1557019.1557032}.
+
+\leavevmode\hypertarget{ref-ginther2011race}{}%
+Ginther, Donna K, Walter T Schaffer, Joshua Schnell, Beth Masimore, Faye
+Liu, Laurel L Haak, and Raynard Kington. 2011. ``Race, Ethnicity, and
+Nih Research Awards.'' \emph{Science} 333 (6045). American Association
+for the Advancement of Science: 1015--9.
+\url{https://doi.org/10.1126/science.1196783}.
+
+\leavevmode\hypertarget{ref-kozlowski2021avoiding}{}%
+Kozlowski, Diego, Dakota S Murray, Alexis Bell, Will Hulsey, Vincent
+Larivière, Thema Monroe-White, and Cassidy R Sugimoto. 2021. ``Avoiding
+Bias When Inferring Race Using Name-Based Approaches.'' \emph{arXiv
+Preprint arXiv:2104.12553}.
+
+\leavevmode\hypertarget{ref-lariviere2013bibliometrics}{}%
+Larivière, Vincent, Chaoqun Ni, Yves Gingras, Blaise Cronin, and Cassidy
+R Sugimoto. 2013. ``Bibliometrics: Global Gender Disparities in
+Science.'' \emph{Nature News} 504 (7479): 211.
+\url{https://doi.org/10.1038/504211a}.
+
+\leavevmode\hypertarget{ref-schwartz2021impact}{}%
+Schwartz, Leah P, Jean Liénard, and Stephen V David. 2021. ``Impact of
+Gender on the Formation and Outcome of Mentoring Relationships in
+Academic Research.'' \emph{arXiv Preprint arXiv:2104.07780}.
+
+\leavevmode\hypertarget{ref-social2013beyond}{}%
+Social Security Administration. 2013. ``Beyond the Top 1000 Names.''
+\emph{Retrieved March} 20: 2014.
+
+\leavevmode\hypertarget{ref-illinoisdatabankIDB-9087546}{}%
+Torvik, Vetle. 2018. ``Genni + Ethnea for the Author-Ity 2009 Dataset.''
+University of Illinois at Urbana-Champaign.
+\url{https://doi.org/10.13012/B2IDB-9087546_V1}.
+
+\end{document}
