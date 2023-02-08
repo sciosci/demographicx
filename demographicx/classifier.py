@@ -2,6 +2,8 @@ import torch
 from scipy.special import softmax
 from torch.utils.data import DataLoader, TensorDataset
 from transformers import BertForSequenceClassification, AutoTokenizer
+import numpy as np
+import pandas as pd
 
 __all__ = [
     'GenderEstimator',
@@ -42,6 +44,22 @@ def _one_batch_name_predictor(encoder, model, name):
     return output
 
 
+def _multi_batch_name_predictor(encoder, model, names, batch):
+    """Helped function for predicting a name based on an encode and model"""
+    encoded = encoder([get_name_pair(str(name).lower()) for name in names],
+                      return_attention_mask=True,
+                      padding=True, return_tensors='pt')
+    dataset = TensorDataset(encoded['input_ids'], encoded['attention_mask'],
+                            torch.tensor([0] * batch))
+    dataloader = DataLoader(dataset, batch_size=batch)
+    batch = next(iter(dataloader))
+
+    inputs = {'input_ids': batch[0], 'attention_mask': batch[1],
+              'labels': batch[2], }
+    output = softmax(model(**inputs).logits.detach().tolist(), axis = 1)
+    return output
+
+
 class GenderEstimator:
     """Gender estimator based on BERT sub-word tokenization.
 
@@ -76,6 +94,8 @@ class GenderEstimator:
         ----------
         name: string
               A first name for which you want to predict the gender.
+        batch: int
+              The number of names passed for prediction
         
         Returns
         -------
@@ -84,9 +104,23 @@ class GenderEstimator:
               gender for example: {'male': 0.9886190672823015,
                 'unknown': 0.011367974526753396, 'female': 1.2958190945360288e-05}
         """
-        output = _one_batch_name_predictor(self.tokenizer, self.model, name)
-        res = {'male': output[0], 'unknown': output[1], 'female': output[2]}
-        return res
+        
+        if type(name) == str:
+            batch = 1
+        else:
+            batch = len(name)
+        
+        if batch == 1:
+            output = _one_batch_name_predictor(self.tokenizer, self.model, name)
+            res = {'male': output[0], 'unknown': output[1], 'female': output[2]}
+            return(res)
+        elif batch > 1:
+            output = _multi_batch_name_predictor(self.tokenizer, self.model, name, batch = batch)
+            res = pd.DataFrame(output).rename({0: 'male',
+                             1: 'unknown',
+                             2: 'female'
+                            }, axis = 1)
+            return(res)
 
 
 class EthnicityEstimator:
@@ -124,7 +158,9 @@ class EthnicityEstimator:
         Parameters
         ----------
         name : string
-               A full name for which you want to predict the ethnicity.
+               A full name for which you want to predict the ethnicity.               
+        batch: int
+              The number of names passed for prediction
         
         Returns
         -------
@@ -136,10 +172,25 @@ class EthnicityEstimator:
               'white': 0.9963380370701861,
               'asian': 0.00126515166175015}
         """
-        output = _one_batch_name_predictor(self.tokenizer, self.model, name)
-        res = {'black': output[2], 'hispanic': output[1], 'white': output[0],
-               'asian': output[3]}
-        return res
+        
+        if type(name) == str:
+            batch = 1
+        else:
+            batch = len(name)
+            
+        if batch == 1:
+            output = _one_batch_name_predictor(self.tokenizer, self.model, name)
+            res = {'black': output[2], 'hispanic': output[1], 'white': output[0],
+                   'asian': output[3]}
+            return(res)
+        elif batch > 1:
+            output = _multi_batch_name_predictor(self.tokenizer, self.model, name, batch = batch)
+            res = pd.DataFrame(output).rename({0: 'white',
+                                               1: 'hispanic',
+                                               2: 'black',
+                                               3: 'asian'
+                                              }, axis = 1)
+            return(res)
 
 class EthnicityEstimatorCensus:
     """Ethnicity estimator based on BERT sub-word tokenization.
@@ -188,8 +239,23 @@ class EthnicityEstimatorCensus:
               'white': 0.9963380370701861,
               'asian': 0.00126515166175015}
         """
-        output = _one_batch_name_predictor(self.tokenizer, self.model, name)
-        res = {'black': output[0], 'hispanic': output[1], 'white': output[2],
-               'asian': output[3]}
-        return res
+        
+        if type(name) == str:
+            batch = 1
+        else:
+            batch = len(name)
+            
+        if batch == 1:
+            output = _one_batch_name_predictor(self.tokenizer, self.model, name)
+            res = {'black': output[0], 'hispanic': output[1], 'white': output[2],
+                   'asian': output[3]}
+            return(res)
+        elif batch > 1:
+            output = _multi_batch_name_predictor(self.tokenizer, self.model, name, batch = batch)
+            res = pd.DataFrame(output).rename({0: 'black',
+                                               1: 'hispanic',
+                                               2: 'white',
+                                               3: 'asian'
+                                              }, axis = 1)
+            return(res)
 
